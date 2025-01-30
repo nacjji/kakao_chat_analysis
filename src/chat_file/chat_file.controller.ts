@@ -29,7 +29,6 @@ export class ChatFileController {
     const chat = await this.aiAnalysisService.analysisChat(
       uploadResult.processedData,
     );
-    console.log(uploadResult.uploadPath);
     await this.chatFileService.deleteFile(uploadResult.uploadPath);
     return chat;
   }

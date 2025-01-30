@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
-import { PreprocessedChatDto } from 'src/preprocessing/dto/preprocessed-chat.dto';
 
 @Injectable()
 export class AiAnalysisService {
@@ -8,7 +7,7 @@ export class AiAnalysisService {
     apiKey: process.env.OPENAI_API_KEY, // defaults to process.env["OPENAI_API_KEY"]
   });
 
-  async analysisChat(chat: PreprocessedChatDto[]) {
+  async analysisChat(chat: string[]) {
     // JSON.stringify(chat) .length가 4096을 넘어가면 그 전까지 자르기
     chat = JSON.stringify(chat).length > 4000 ? chat.slice(0, 4000) : chat;
     const content = await this.openai.chat.completions.create({

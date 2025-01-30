@@ -12,7 +12,6 @@ export class ChatFileService {
       throw new BadRequestException('txt 파일만 업로드 가능합니다.');
     }
     const uploadPath = path.join(__dirname, '../../uploads', file.originalname);
-
     await fs.writeFile(uploadPath, file.buffer); // 파일 저장
 
     // 파일 전처리 실행
