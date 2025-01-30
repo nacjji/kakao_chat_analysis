@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>카카오톡 대화 분석</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      #result {
+        white-space: pre-wrap;
+        text-align: left;
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background: #f9f9f9;
+        display: inline-block;
+        max-width: 80%;
+      }
+      #guide-container {
+        margin-top: 40px;
+      }
+      #guide-image {
+        max-width: 80%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>카카오톡 TXT 파일 업로드</h1>
+    <input type="file" id="fileInput" />
+    <button id="uploadButton" onclick="uploadFile()">업로드</button>
+    <pre id="result"></pre>
+
+    <!-- ✅ 가이드 이미지 -->
+    <div id="guide-container">
+      <h2>📌 PC 가이드</h2>
+      <img id="guide-image" src="/images/pc1.png" alt="업로드 가이드" />
+      <img id="guide-image" src="/images/pc3.png" alt="업로드 가이드" />
+      <h2>📌 모바일 가이드</h2>
+      <img id="guide-image" src="/images/모바일1.jpg" alt="업로드 가이드" />
+      <img id="guide-image" src="/images/모바일2.jpg" alt="업로드 가이드" />
+      <img id="guide-image" src="/images/모바일3.jpg" alt="업로드 가이드" />
+    </div>
+
+    <script>
+      async function uploadFile() {
+        const fileInput = document.getElementById('fileInput');
+        const uploadButton = document.getElementById('uploadButton');
+        const resultText = document.getElementById('result');
+
+        if (!fileInput.files.length) {
+          alert('파일을 선택하세요!');
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        // 🚀 업로드 버튼 비활성화
+        uploadButton.disabled = true;
+        uploadButton.textContent = '업로드 중...';
+
+        try {
+          const response = await fetch('/chat-file/upload', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const textResult = await response.text(); // JSON이든 텍스트든 그대로 받음
+
+          if (!response.ok) {
+            if (response.status === 400) {
+              alert('잘못된 요청: ' + textResult);
+            }
+          }
+
+          resultText.textContent = textResult; // 서버 응답 그대로 출력
+        } catch (error) {
+          console.error('업로드 실패:', error);
+          resultText.textContent = '업로드 중 오류가 발생했습니다.';
+        } finally {
+          // 🚀 업로드 버튼 다시 활성화
+          uploadButton.disabled = false;
+          uploadButton.textContent = '업로드';
+        }
+      }
+    </script>
+  </body>
+</html>
