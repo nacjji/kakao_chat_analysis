@@ -20,8 +20,7 @@ export class ChatFileService {
       await this.preprocessingService.processFile(uploadPath);
 
     // 파일 삭제
-    await this.deleteFile(uploadPath);
-    return processedData;
+    return { processedData, uploadPath };
   }
 
   async deleteFile(filePath: string) {

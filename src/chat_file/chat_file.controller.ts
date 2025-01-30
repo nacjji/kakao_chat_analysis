@@ -25,9 +25,12 @@ export class ChatFileController {
     @Body() dto: FileUploadDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    const preprocessedData = await this.chatFileService.uploadFile(file);
-    const chat = await this.aiAnalysisService.analysisChat(preprocessedData);
-
+    const uploadResult = await this.chatFileService.uploadFile(file);
+    const chat = await this.aiAnalysisService.analysisChat(
+      uploadResult.processedData,
+    );
+    console.log(uploadResult.uploadPath);
+    await this.chatFileService.deleteFile(uploadResult.uploadPath);
     return chat;
   }
 }

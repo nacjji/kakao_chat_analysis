@@ -15,7 +15,7 @@ export class AiAnalysisService {
       messages: [
         {
           role: 'system',
-          content: `다음 대화 내용을 요약해, 등장인물 들의 MBTI를 분석해주세요, 인물 : 누구, MBTI: OOOO, 이유 : OOOO, 둘의 관계 : OOOO`,
+          content: `다음 대화 내용을 요약해, 등장인물 들의 MBTI와 관계를 현실적으로 분석해주세요, 인물 : 누구, MBTI: OOOO, 이유 : OOOO, 둘의 관계 : OOOO`,
         },
         {
           role: 'user',
