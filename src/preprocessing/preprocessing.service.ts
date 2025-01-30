@@ -7,7 +7,7 @@ export class PreprocessingService {
     try {
       // 1. 파일 읽기
       const fileContent = await fs.readFile(filePath, 'utf-8');
-
+      console.log(fileContent);
       // 2. 줄 단위 분할
       const lines = fileContent.split('\n');
       const chatData: string[] = [];
