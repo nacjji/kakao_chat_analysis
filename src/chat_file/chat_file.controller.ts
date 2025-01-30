@@ -29,6 +29,7 @@ export class ChatFileController {
     const chat = await this.aiAnalysisService.analysisChat(
       uploadResult.processedData,
     );
+    // 파일 삭제
     await this.chatFileService.deleteFile(uploadResult.uploadPath);
     return chat;
   }

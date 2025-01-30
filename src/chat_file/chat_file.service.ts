@@ -17,16 +17,10 @@ export class ChatFileService {
     // 파일 전처리 실행
     const processedData =
       await this.preprocessingService.processFile(uploadPath);
-    // 파일 삭제
     return { processedData, uploadPath };
   }
 
   async deleteFile(filePath: string) {
-    try {
-      await fs.unlink(filePath);
-    } catch (error) {
-      console.error('파일 삭제 중 오류 발생:', error);
-      throw error;
-    }
+    await fs.unlink(filePath);
   }
 }
