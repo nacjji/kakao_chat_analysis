@@ -18,7 +18,6 @@ export class ChatFileService {
     // 파일 전처리 실행
     const processedData =
       await this.preprocessingService.processFile(uploadPath);
-
     // 파일 삭제
     return { processedData, uploadPath };
   }
