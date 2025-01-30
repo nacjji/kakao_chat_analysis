@@ -10,7 +10,7 @@ export class AiAnalysisService {
 
   async analysisChat(chat: PreprocessedChatDto[]) {
     // JSON.stringify(chat) .length가 4096을 넘어가면 그 전까지 자르기
-    chat = JSON.stringify(chat).length > 7000 ? chat.slice(0, 7000) : chat;
+    chat = JSON.stringify(chat).length > 4000 ? chat.slice(0, 4000) : chat;
     const content = await this.openai.chat.completions.create({
       messages: [
         {
